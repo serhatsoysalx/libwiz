@@ -1,6 +1,8 @@
 package com.libwiz.libwiz.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -12,6 +14,9 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(min = 6, max = 20)
+    @Column(unique = true)
     private String phoneNumber;
 
     private Date dateOfBirth;

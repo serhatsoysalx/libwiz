@@ -1,0 +1,43 @@
+<configuration>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/prod-application.log</file>
+        <encoder>
+            <pattern>%d %p %C{1} [%t] %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/archive/spring-boot-logging-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Dev profili -->
+    <springProfile name="dev">
+        <appender name="output" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>
+                    %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+        <root level="debug">
+            <appender-ref ref="output"/>
+            <appender-ref ref="file"/>
+        </root>
+        <logger name="com.libwiz.libwiz.controller" additivity="false" level="debug">
+            <appender-ref ref="file"/>
+        </logger>
+    </springProfile>
+
+    <!-- Prod profili -->
+    <springProfile name="prod">
+        <root level="warn">
+            <appender-ref ref="file"/>
+        </root>
+        <logger name="com.libwiz.libwiz.controller" additivity="false" level="error">
+            <appender-ref ref="file"/>
+        </logger>
+    </springProfile>
+
+</configuration>
