@@ -23,30 +23,28 @@ public class UserControllerAop {
     private static final Logger logger = LoggerFactory.getLogger(UserControllerAop.class);
 
     @Before("execution(* com.libwiz.libwiz.controller.UserController.*(..))")
-    public void logBefore(JoinPoint joinPoint) {
+    private void logBefore(JoinPoint joinPoint) {
         logger.info("Entering method: {}", joinPoint.getSignature().getName());
         logger.info("With arguments: {}", joinPoint.getArgs());
     }
 
     @After("execution(* com.libwiz.libwiz.controller.UserController.*(..))")
-    public void logAfter(JoinPoint joinPoint) {
+    private void logAfter(JoinPoint joinPoint) {
         logger.info("Exiting method: {}", joinPoint.getSignature().getName());
     }
 
-
     @Before("execution(* com.libwiz.libwiz.controller.UserController.createUser()))")
-    public void beforeCreateUserAspect(JoinPoint joinPoint) {
+    private void beforeCreateUserAspect(JoinPoint joinPoint) {
         logger.info("User creating. Entering method: {}", joinPoint.getSignature().getName());
     }
 
-    // User Register Info
     @After("execution(* com.libwiz.libwiz.controller.UserController.createUser()) && args(userDtoRequest)")
-    public void afterUserSave(UserDtoRequest userDtoRequest) {
+    private void afterUserSave(UserDtoRequest userDtoRequest) {
         userServiceAop.afterCreateUserAspect(userDtoRequest);
     }
 
     @AfterReturning(pointcut = "execution(* com.libwiz.libwiz.service.UserService.createUser(..))", returning = "userRegistrationInfo")
-    public void logAfterReturning(UserRegistrationInfo userRegistrationInfo) {
+    private void logAfterReturning(UserRegistrationInfo userRegistrationInfo) {
         logger.info("User created successfully: {}", userRegistrationInfo);
     }
 }
