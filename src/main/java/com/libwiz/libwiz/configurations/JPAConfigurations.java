@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.libwiz.libwiz.repository") // Repository arayüzlerinin bulunduğu paket
+@EnableJpaRepositories(basePackages = "com.libwiz.libwiz")
 @EnableConfigurationProperties(DataSourceProperties.class)
 public class JPAConfigurations {
 

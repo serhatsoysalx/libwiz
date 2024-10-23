@@ -33,13 +33,11 @@ public class UserControllerAop {
         logger.info("Exiting method: {}", joinPoint.getSignature().getName());
     }
 
-
     @Before("execution(* com.libwiz.libwiz.controller.UserController.createUser()))")
     public void beforeCreateUserAspect(JoinPoint joinPoint) {
         logger.info("User creating. Entering method: {}", joinPoint.getSignature().getName());
     }
 
-    // User Register Info
     @After("execution(* com.libwiz.libwiz.controller.UserController.createUser()) && args(userDtoRequest)")
     public void afterUserSave(UserDtoRequest userDtoRequest) {
         userServiceAop.afterCreateUserAspect(userDtoRequest);
