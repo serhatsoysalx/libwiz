@@ -25,21 +25,21 @@ public class UserProfileController {
         return new ResponseEntity<>(createdProfile, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getuserprofile/{id}")
     @Operation(description = "Get User Profile with id")
     public ResponseEntity<UserProfileDtoResponse> getUserProfileById(@PathVariable Long id) {
         UserProfileDtoResponse userProfile = userProfileService.getUserProfileById(id);
         return userProfile != null ? ResponseEntity.ok(userProfile) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping
+    @GetMapping("/getalluserprofile")
     @Operation(description = "Get all user profiles")
     public ResponseEntity<Iterable<UserProfileDtoResponse>> getAllUserProfiles() {
         Iterable<UserProfileDtoResponse> userProfiles = userProfileService.getAllUserProfiles();
         return ResponseEntity.ok(userProfiles);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updateuserprofile/{id}")
     @Operation(description = "update user profile")
     public ResponseEntity<UserProfileDtoResponse> updateUserProfile(@PathVariable Long id, @RequestBody UserProfileDtoRequest userProfileDtoRequest) {
         UserProfileDtoResponse updatedProfile = userProfileService.updateUserProfile(id, userProfileDtoRequest);
