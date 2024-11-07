@@ -1,9 +1,10 @@
-package com.libwiz.libwiz.swagger2.model;
+package com.libwiz.libwiz.util.swagger.model;
 
+import com.libwiz.libwiz.entity.UserProfile;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(defaultValue = "User Model Request", description = "User Request model Json Model")
-public class UserRequestModelAOP {
+@Schema(defaultValue = "User Model Response", description = "User Response model Json Model")
+public class UserResponseModelAOP {
 
     @Schema(nullable = true, defaultValue = "User id")
     private Long id;
@@ -21,18 +22,22 @@ public class UserRequestModelAOP {
     private boolean status;
 
     @Schema(nullable = true, defaultValue = "User delete status")
-    private boolean deleted;
+    private boolean delete;
 
-    public UserRequestModelAOP() {
+    @Schema(nullable = true, defaultValue = "Object of User Profile")
+    private UserProfile userProfile;
+
+    public UserResponseModelAOP() {
     }
 
-    public UserRequestModelAOP(Long id, String email, String password, String username, boolean status, boolean deleted) {
+    public UserResponseModelAOP(Long id, String email, String password, String username, boolean status, boolean delete, UserProfile userProfile) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
         this.status = status;
-        this.deleted = deleted;
+        this.delete = delete;
+        this.userProfile = userProfile;
     }
 
     public Long getId() {
@@ -75,11 +80,19 @@ public class UserRequestModelAOP {
         this.status = status;
     }
 
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isDelete() {
+        return delete;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setDelete(boolean delete) {
+        this.delete = delete;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }

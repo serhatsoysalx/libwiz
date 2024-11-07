@@ -17,10 +17,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserControllerAop {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserControllerAop.class);
     @Autowired
     private UserServiceAop userServiceAop;
-
-    private static final Logger logger = LoggerFactory.getLogger(UserControllerAop.class);
 
     @Before("execution(* com.libwiz.libwiz.controller.UserController.*(..))")
     public void logBefore(JoinPoint joinPoint) {

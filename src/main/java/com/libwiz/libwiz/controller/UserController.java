@@ -12,21 +12,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @Tag(name = "User Api", description = "User Api informations")
 public class UserController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserService userService;
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/createuser")
     @Operation(description = "Creater User")
     public ResponseEntity<UserDtoResponse> createUser(@RequestBody UserDtoRequest userDtoRequest) {
         UserDtoResponse createdUser = userService.createUser(userDtoRequest);
+        logger.info("User Create Http Status : {}", HttpStatus.CREATED);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
@@ -34,11 +33,11 @@ public class UserController {
     @Operation(description = "Get sser with id")
     public ResponseEntity<UserDtoResponse> getUserById(@PathVariable Long id) {
         UserDtoResponse user = userService.getUserById(id);
-        return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/users")
-    @Operation(description = "Get All Users")
+    @Operation(description = "Get all users")
     public ResponseEntity<Iterable<UserDtoResponse>> getAllUsers() {
         Iterable<UserDtoResponse> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
@@ -54,6 +53,7 @@ public class UserController {
     @PutMapping("/deleteuser/{id}")
     @Operation(description = "Delete User with id")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+
         boolean deleted = userService.deleteUser(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
