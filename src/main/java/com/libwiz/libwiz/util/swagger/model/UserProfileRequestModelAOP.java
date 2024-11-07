@@ -1,4 +1,4 @@
-package com.libwiz.libwiz.swagger2.model;
+package com.libwiz.libwiz.util.swagger.model;
 
 import com.libwiz.libwiz.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
